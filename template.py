@@ -1,5 +1,5 @@
 '''
-J AUstin Hutchinson
+J Austin Hutchinson
 CSE 111
 Week #
 Assignment Name
@@ -14,5 +14,6 @@ def main():
 
 # Helper Functions
 
-# Function call
-main()
+# Main call
+if __name__ == "__main__":
+    main()

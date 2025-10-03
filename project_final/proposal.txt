@@ -9,18 +9,29 @@ CSE 111 Proposal for a Student Chosen Program
     answer each of the following questions to the best of your
     knowledge.)
 
-1. What is the title of your program?
+1. What is the title of your program? 
+    Prosody Analyzer
 
-2. What real-world problem will your program address or help to solve?
+2. What real-world problem will your program address or help to solve? 
+    In poetry, Prosody is the analysis of the aesthetic qualities of the words in a poem, espeicially meter, rhyme etc.
 
 3. What will you learn from developing this program?
+    I hope to practice working with Remote APIs. 
 
 4. What Python modules will your program use?
-
+    requests, json, pytest 
     (Some examples are: csv, datetime, functools, matplotlib, math,
     pandas, pytest, random, requests, and tkinter.)
 
 5. List the names of functions you will need?
+    
+    get_api_response
+    calculate_meter
+    match_metrical_pattern
+    check_alliteration
+    check_rhyme
+    lineate_text
+    
 
     (Remember that the most reusable functions don't get user input and
     don't print results but instead have parameters and return a result.
@@ -34,4 +45,8 @@ CSE 111 Proposal for a Student Chosen Program
     to have parameters and return a result.)
 
 6. List the names of the test functions you will write.
-
+    test_api_response
+    test_stresses
+    test_metrical_patterns
+    test_alliteration
+    test_rhyme

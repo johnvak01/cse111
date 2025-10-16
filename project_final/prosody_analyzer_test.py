@@ -9,7 +9,7 @@ import pytest
 import random
 
 # import functions to test
-from prosody_analyzer import calculate_stresses, calculate_foot_pattern, match_metrical_pattern, check_alliteration, check_rhyme, lineate_text
+from prosody_analyzer import calculate_stresses, calculate_foot_pattern, match_metrical_pattern
 
 def test_basic_foot_pattern():
     '''
@@ -41,8 +41,8 @@ def test_joined_foot_patterns():
 def test_random_patterns():
     pattern = ""
     try:
-        for x in range(20):
-            pattern = "".join(random.choices(["0","1"], k=random.randint(0,100)))
+        for x in range(500):
+            pattern = "".join(random.choices(["0","1"], k=random.randint(2,100)))
             print(pattern)
             assert calculate_foot_pattern(pattern)
     except Exception as e:

@@ -14,16 +14,48 @@ def main():
     PARAM:  none
     RETURN: 0
     '''
-    # get desired text
-    text = input("The Text to analyze: ")
-    
-    cleaned_text = clean_text(text)
-    print(cleaned_text)
-    text_analysis = get_api_response(cleaned_text)
-    print(text_analysis)
-    text_stresses = calculate_stresses(text_analysis)
-    foot_pattern = calculate_foot_pattern(text_stresses)
-    print(foot_pattern)
+    # print intro and disclaimer
+
+    print("This tool uses the Datamuse API to analyze a line of text for word stress and calculates in what poetic meter the line is in.") 
+    print("Disclaimer: Datamuse can only calculate on a word by word basis. Changes in a words stresses based on their context in a statement is not calculated.")
+    while True:
+        # get desired text
+        text = input("Please insert a line of english words to analyze. Punctuation is ignored. (q to quit): ").lower()
+        
+        if text == "q":
+            print("Thank you for using this tool!")
+            break
+            
+        cleaned_text = clean_text(text)
+        # print(cleaned_text)
+        
+        if any(char.isdigit() for char in cleaned_text):
+            print("\tThat line contains a digit, and is thus invalid. Please use the whole english words when using numbers. ex. \"Two\", not \"2\".\n")
+            continue
+        # get the analysis from datamuse
+        text_analysis = get_api_response(cleaned_text)
+        # print(text_analysis)
+
+        if text_analysis == []:
+            print("\tInvalid Line. Please enter a valid line of english text.\n")
+            continue
+        elif len(text_analysis) < 2:
+            print("\tA single word is not a valid target for analysis. Please enter a line of text for analysis.\n")
+            continue
+        # extract wor stress pattern from datamuse analysis
+        text_stresses = calculate_stresses(text_analysis)
+        
+        # use stress pattern to calculate line type
+        foot_pattern = calculate_foot_pattern(text_stresses)
+        final_pattern = match_metrical_pattern(foot_pattern) 
+        # Print Result
+        print(f"This line has the following poetic feet:")
+        foot_string = ""
+        for foot in foot_pattern:
+            foot_string += foot + ", "
+        print(f"\t{foot_string}")
+        print(f"\tThis line is written in {final_pattern.title()}.\n")
+        
     return 0
 
 # Helper Functions
@@ -62,9 +94,8 @@ def calculate_stresses(text):
         for character in word[1]:
             if character in string.digits:
                 stresses+=character
-    print(stresses)
+    # print(stresses)
     return stresses
-
 def check_syllables(pattern, check_list, final_list):
     '''
     FOR:    checking a pattern vs entries in a list of syllables  
@@ -76,8 +107,6 @@ def check_syllables(pattern, check_list, final_list):
            final_list.append(syllable[1])
            return len(syllable[0])-1
     return 0
-
-
 def calculate_foot_pattern(pattern):
     '''
     FOR:    determine if a metrical pattern matches a particular poems pattern  
@@ -142,7 +171,7 @@ def calculate_foot_pattern(pattern):
             continue
         # establish what we're testing
         pattern_remaining = pattern_length - index
-        print(pattern_remaining)
+        # print(pattern_remaining)
         unisyllable = pattern[index]
         disyllable = pattern[index]+pattern[index+1]
         if pattern_remaining > 2:
@@ -176,8 +205,8 @@ def calculate_foot_pattern(pattern):
 def match_metrical_pattern(passed_pattern):
     '''
     FOR:    determine if a metrical pattern matches a particular poems pattern  
-    PARAM:  x
-    RETURN: x
+    PARAM:  
+    RETURN: list of
     '''
     number_of_feet = ["monometer", "dimeter", "trimeter", "tetrameter", "pentameter", "hexameter", "heptameter", "octameter", "nonameter"]
     mono_foot_types = [
@@ -216,28 +245,6 @@ def match_metrical_pattern(passed_pattern):
     # return output
     return output
 
-# Extras
-def check_alliteration():
-    '''
-    FOR:    check for matching consonant sounds
-    PARAM:  x
-    RETURN: x
-    '''
-    pass
-def check_rhyme():
-    '''
-    FOR:    check for rhyme
-    PARAM:  x
-    RETURN: x
-    '''
-    pass
-def lineate_text():
-    '''
-    FOR:    take a text and convert it into poetic form, seperating lines etc.
-    PARAM:  x
-    RETURN: x
-    '''
-    pass
 
 # Main call
 if __name__ == "__main__":

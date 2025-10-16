@@ -87,6 +87,7 @@ def calculate_foot_pattern(pattern):
     # feet patterns: "01"-"iamb", "10"-"trochee", "110"-"anapest", "011"-"dactyl", 
     # only top be found in the revision "101" - amphibrach, "100" - bacchius, "010" - cretic, 011 - dactyl
 
+    #TODO: add handling for empty strings and single digit patterns
     # list the syllables we are going to be testig against
     disyllables = [
                     ["00","dibrach"],

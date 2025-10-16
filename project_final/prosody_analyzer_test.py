@@ -39,13 +39,15 @@ def test_joined_foot_patterns():
     # assert calculate_foot_pattern("0000") == [" py"," "]
 
 def test_random_patterns():
+    pattern = ""
     try:
         for x in range(20):
             pattern = "".join(random.choices(["0","1"], k=random.randint(0,100)))
             print(pattern)
             assert calculate_foot_pattern(pattern)
-    except:
-        pytest.fail("Random Patterns failed to produce coherent results")
+    except Exception as e:
+        pytest.fail(f"Random Patterns failed to produce coherent results. The Error: {e}")
+        
 
 def test_foot_pattern_matching():
     assert match_metrical_pattern(["iamb"]) == "iambic monometer"
